@@ -1,0 +1,502 @@
+
+/*
+==================================================
+ PROYECTO: SISTEMA DE CONTROL DE NOTAS ACADÉMICAS
+ Autor: Adonis Mauricio Guzmán Henríquez
+ INCOA | 1TB Software | Código 13
+ Año: 2026
+
+ Derechos de autor:
+ Proyecto educativo de programación web.
+==================================================
+*/
+/* Tipografías de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #302653, transparent 45%),
+        linear-gradient(135deg, #090d1c, #17132e, #0b1830);
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+.encabezado {
+    text-align: center;
+    padding: 35px 15px 25px;
+}
+
+.icono {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.encabezado h1 {
+    font-size: 29px;
+    letter-spacing: 2px;
+    color: #c2b2ff;
+}
+
+.encabezado p {
+    margin-top: 9px;
+    color: #d1d5e8;
+}
+
+.encabezado span {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #a5a9ca;
+}
+
+/* Distribución de tarjetas */
+.contenedor {
+    width: min(1100px, 94%);
+    margin: 0 auto 35px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+/* Tarjetas */
+.tarjeta {
+    background: #171d35;
+    border: 1px solid #48436d;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 15px 40px #00000065;
+    transition: transform 0.3s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-3px);
+}
+
+.etiqueta {
+    display: table;
+    margin: 0 auto 16px;
+    padding: 7px 13px;
+    border-radius: 20px;
+    background: #302d59;
+    color: #c6baff;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.tarjeta h2 {
+    text-align: center;
+    color: #c4b5fd;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    text-align: center;
+    color: #b9c0d9;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+/* Campos */
+label {
+    display: block;
+    margin: 15px 0 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #e3e5ff;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    background: #0e1428;
+    color: white;
+    border: 1px solid #454b70;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: #858eaa;
+}
+
+input:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px #a78bfa25;
+}
+
+/* Cuadrícula de notas */
+.notas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 15px;
+}
+
+/* Botones */
+button {
+    width: 100%;
+    margin-top: 23px;
+    padding: 14px;
+    background: linear-gradient(90deg, #7655dc, #397ee7);
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px #7655dc55;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.boton-secundario {
+    background: linear-gradient(90deg, #087d75, #20a77b);
+}
+
+button[hidden] {
+    display: none;
+}
+
+/* Errores y mensajes */
+.error {
+    margin-top: 15px;
+    color: #ff9da8;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mensaje-consulta {
+    margin-top: 15px;
+    color: #bfc9e4;
+    font-size: 13px;
+}
+
+/* Resultado de cálculo */
+.resultado {
+    display: none;
+    margin-top: 22px;
+    padding: 19px;
+    background: #172e3c;
+    border: 1px solid #4389a9;
+    border-radius: 12px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.resultado h3 {
+    color: #83ddff;
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.promedio {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #bcaaff;
+    margin: 10px 0;
+}
+
+.clasificacion {
+    text-align: center;
+    color: #7ff0bc;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* Tabla de registros */
+.tabla-contenedor {
+    margin-top: 18px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    min-width: 340px;
+}
+
+th {
+    background: #35315d;
+    color: #dcd4ff;
+    text-align: left;
+}
+
+th, td {
+    padding: 11px 9px;
+    border-bottom: 1px solid #3b4260;
+}
+
+td {
+    color: #e3e7f7;
+}
+
+tbody tr:hover {
+    background: #252b49;
+}
+
+/* Estadísticas */
+.estadisticas {
+    margin-top: 20px;
+    padding: 17px;
+    background: #102d2b;
+    border: 1px solid #368c75;
+    border-radius: 11px;
+    line-height: 2;
+}
+
+.estadisticas h3 {
+    color: #83f0c0;
+    margin-bottom: 7px;
+}
+
+.estadisticas p {
+    color: #e1fff2;
+    font-size: 14px;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 20px 10px;
+    color: #949db9;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* Diseño para celulares */
+@media (max-width: 800px) {
+    .contenedor {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+    }
+}
+
+@media (max-width: 480px) {
+    .encabezado h1 {
+        font-size: 22px;
+    }
+
+    .tarjeta {
+        padding: 20px;
+    }
+
+    .notas-grid {
+        gap: 0 10px;
+    }
+
+/* ==========================================
+   TIPOGRAFÍAS Y ESTILO VISUAL
+   ADONIS MAURICIO GUZMÁN HENRÍQUEZ
+   1TB SOFTWARE | CÓDIGO 13 | 2026
+========================================== */
+
+/* LETRA GENERAL */
+body {
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+/* TÍTULO PRINCIPAL */
+h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.8rem);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.1;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #b98aff,
+        #5ee7ff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 0 28px rgba(153, 91, 255, 0.18);
+}
+
+/* SUBTÍTULOS */
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #c7a5ff;
+    text-transform: uppercase;
+}
+
+/* TÍTULOS PEQUEÑOS */
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.7px;
+}
+
+/* PÁRRAFOS */
+p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #c9c5d8;
+}
+
+/* ETIQUETAS DE LOS FORMULARIOS */
+label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #d7c5ff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+/* CAMPOS DE TEXTO */
+input,
+select,
+textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* BOTONES */
+button {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.15);
+}
+
+/* RESULTADO DEL PROMEDIO */
+#resultado {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.9;
+}
+
+/* RESALTAR EL PROMEDIO */
+.promedio,
+#resultado strong {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    color: #75eaff;
+    letter-spacing: 1px;
+}
+
+/* MENSAJES Y ESTADÍSTICAS */
+#estadisticas {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 2;
+}
+
+/* TABLAS */
+table {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.2px;
+}
+
+th {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #d9c5ff;
+}
+
+td {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* NÚMEROS DESTACADOS */
+.numero-destacado {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: #70e8ff;
+    text-shadow: 0 0 18px rgba(112, 232, 255, 0.4);
+}
+
+/* TEXTO SECUNDARIO */
+small,
+.texto-secundario {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #aaa3bd;
+    letter-spacing: 0.5px;
+}
+
+/* EFECTO DE SELECCIÓN */
+::selection {
+    background: #9655ff;
+    color: white;
+}
+
+/* AJUSTE PARA CELULARES */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.5rem;
+        letter-spacing: 1.5px;
+    }
+
+    h2 {
+        font-size: 1.05rem;
+    }
+
+    button {
+        font-size: 0.68rem;
+    }
+
+    label {
+        font-size: 0.75rem;
+    }
+}
+}
